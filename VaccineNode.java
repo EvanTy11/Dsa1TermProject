@@ -1,71 +1,122 @@
 import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.Random;
 
+//Creating the class VaccineNode
+public class VaccineNode {
+	//Creating a RanRID instance to use Random class methods which we use to generate a random RID
+	Random ranRID = new Random();
 
-public class VaccineNode<E> {
+	//Creating linked list VaccineRecipientList filled with VaccineRecipient objects
+	LinkedList<VaccineRecipient> VaccineRecipientList = new LinkedList<>(); 
 
-	public static <VaccineRecipient> void main(String args[]) {
-		
-		boolean flag = true;
-//Creating a scanner
-		Scanner scan = new Scanner(System.in);
-		// Creating a new LinkedList filled with HomeworkOrganizer objects
-		LinkedList<VaccineRecipient> VaccineRecipientRecord = new  LinkedList<>();
-//While loop which goes through options 1-5 and executes each service the user wants 
-		while (flag) {
-			int option = 0;
+	//Adding a new VaccineRecipient node to the linkedlist
+	public void add(VaccineRecipient newNode){
 
-			System.out.println(
-					"Welcome to the vaccine Dashboard! Please enter an option: Options: 1 = Add new vaccine recip record, Option 2 print vaccine recip list, Option 3 remove a vaccine recip, Option 4 find assignment with earliest due date ");
-			option = scan.nextInt();
+		VaccineRecipientList.add(newNode);
+	 
+	}
 
-			if (option == 1) {
-//option 1takes in user month,day,year, and name uses the .add method to create a new node with a HomeworkOrganizer object filled with the users values
-				System.out.println("Enter the patients ID:");
-				int userID = scan.nextInt();
-				System.out.println("Enter the the patients name:");
-				String name = scan.next();
-				System.out.println("Enter the the prevac Questionare:");
-				String prevacQuestionare = scan.next();
-				System.out.println("Number of Doses:");
-				int NumberofDoses = scan.nextInt();
-				System.out.println("vaccineCert:");
-				String vaccineCert = scan.next();
-				VaccineRecipientRecord.add(new VaccineRecipient(userID,name,prevacQuestionare, NumberofDoses, vaccineCert));
+	//returning the size of the linked list
+	public int size(){
+
+		return VaccineRecipientList.size();
+	}
+
+	//Method which takes an RID which it uses to search for the correct node associated with the correct RID then it takes a updatechoice from the user which is uses to choose what element to update in the node then the updatedInfo is the String info which takes the place of the old info
+	public void searchRIDString(int searchRID,int updatechoice, String updatedInfo){ 
+        for(int i = 0; i < VaccineRecipientList.size(); i++){
+            if(VaccineRecipientList.get(i).getRID() == searchRID){
+				if(updatechoice == 1){
+				VaccineRecipientList.get(i).setName(updatedInfo);
+            	}
+			if(updatechoice == 2)
+			VaccineRecipientList.get(i).setVaccineCert(updatedInfo);
 			}
-			// option 2 prints out the assignments by looping and getting the values at index i and prints them out.
-			if (option == 2) {
-				System.out.println("Vaccine Recip List:");
-				if(VaccineRecipientRecord.size() == 0) {
-					System.out.println("No patients added, list is empty!");
-				}
-				if(VaccineRecipientRecord.size() > 0) {
-					for (int i = 0; i < VaccineRecipientRecord.size(); i++) {
-						System.out.println("Patient Number:"+VaccineRecipientRecord.get(i).getID()+" " + "Patient Name:" + VaccineRecipientRecord.get(i).getName()+ " "  + "Prevac Survey:"+ VaccineRecipientRecord.get(i).getprevacQuestionare()
-								+" " + "Number of Doses:"+ VaccineRecipientRecord.get(i).getNumberofDoses()+" " + "Vaccine Cert:" + VaccineRecipientRecord.get(i).getvaccineCert());
-
-					}	
-				}
-				
-			}
-			//option 3 takes in user month,day,year, and name uses the .remove method to remove a node with a HomeworkOrganizer object filled with the users values
-			//option 3 takes in user month,day,year, and name uses the .remove method to remove a node with a HomeworkOrganizer object filled with the users values
-			if (option == 3) {
-				if (VaccineRecipientRecord.size() >= 1) {
-					System.out.println("Enter the patients ID you want removed:");
-					int userremoveID = scan.nextInt();
-					
-					for (int i = 0; i < VaccineRecipientRecord.size(); i++) {
-						if (VaccineRecipientRecord.get(i).getID() == userremoveID) {
-							System.out.println("removed vaccine recip info for:" + VaccineRecipientRecord.remove(i));
-						}
-
-					}
-				}
-			}
-			// Option gives you the assignment that is due the soonest
-			
-
 		}
+	}
+
+//Method which takes an RID which it uses to search for the correct node associated with the correct RID then the updatedDoses is the  info which takes the place of the old updatedDoses
+	public void searchRIDInteger(int searchRID, int updatedDoses){ 
+        for(int i = 0; i < VaccineRecipientList.size(); i++){
+            if(VaccineRecipientList.get(i).getRID() == searchRID){
+				VaccineRecipientList.get(i).setNumberofDoses(updatedDoses);
+            }
+		}
+	}
+
+//method which takes in an RID and finds the node associated with the correct RID and prints the Vaccinerecipient RID, name, prevac questionare, NumberofDoses, and vaccineCert
+	public void printVaccineRecipientList(){
+			for (int i = 0; i < VaccineRecipientList.size(); i++) {
+				System.out.println("Vaccine Recipient ID:" + VaccineRecipientList.get(i).getRID() + 
+				"\nPatient Name:" + VaccineRecipientList.get(i).getName() + 
+				"\nPrevac Survey:" + VaccineRecipientList.get(i).getprevacQuestionare() +
+				"\nNumber of Doses:"+ VaccineRecipientList.get(i).getNumberofDoses() + 
+				"\nVaccine Cert:"+ VaccineRecipientList.get(i).getvaccineCert());
+
+			}	
+	}
+
+//method which takes in an RID and finds the node associated with the correct RID and prints the Vaccinerecipient RID, name, NumberofDoses, and vaccineCert
+	public void printVaccineRecipientListEdit(){
+		for (int i = 0; i < VaccineRecipientList.size(); i++) {
+			System.out.println("Vaccine Recipient ID:" + VaccineRecipientList.get(i).getRID() + 
+			"\nPatient Name:" + VaccineRecipientList.get(i).getName()+
+			"\nNumber of Doses:"+ VaccineRecipientList.get(i).getNumberofDoses() + 
+			"\nVaccine Cert:"+ VaccineRecipientList.get(i).getvaccineCert());
+		}
+	}
+	
+	//method which takes in an RID and finds the node associated with the correct RID and prints the Vaccinerecipient RID, and name
+	public void printVaccineRecipientListAppt(){
+		for (int i = 0; i < VaccineRecipientList.size(); i++) {
+			System.out.println("Vaccine Recipient ID:" + VaccineRecipientList.get(i).getRID() + 
+			"\nPatient Name:" + VaccineRecipientList.get(i).getName());
+		}
+	}
+
+	//method which takes in an RID and finds the node associated with the RID and removes the info at that RID's node
+	public void printRemoved(int userremoveRID){
+		for (int i = 0; i < VaccineRecipientList.size(); i++) {
+			if (VaccineRecipientList.get(i).getRID() == userremoveRID) {
+				System.out.println("removed vaccine recip info for:" + VaccineRecipientList.remove(i));
+			}
+		}
+	}
+
+	//Method that generates a new RID whenever a new Node is created
+	public int generateRID(){
+		int randomNumber = ranRID.nextInt(1001);
+		boolean repeat = true;
+		while(repeat == true){
+			repeat = false;
+			for(int i = 0; i < VaccineRecipientList.size(); i++){
+            	if(VaccineRecipientList.get(i).getRID() == randomNumber){
+					randomNumber = ranRID.nextInt(1001);
+					repeat = true;
+				}
+        	}
+		}
+		return randomNumber;
+	}
+
+	//Method that takes an RID and find the NumberofDoses associated with the RID and returns the NumberofDoses 
+	public int getVaccineDoses(int searchRID){
+		for(int i = 0; i < VaccineRecipientList.size(); i++){
+            if(VaccineRecipientList.get(i).getRID() == searchRID){
+				int numberofdoses = VaccineRecipientList.get(i).getNumberofDoses();
+				return numberofdoses;
+            }
+		}
+		return 0;
+	}
+	//Method that takes an RID and find a vaccine cert associated with the RID and returns the vaccine cert 
+	public String getVaccineCert(int searchRID){
+		for(int i = 0; i < VaccineRecipientList.size(); i++){
+            if(VaccineRecipientList.get(i).getRID() == searchRID){
+				String VaccineCert = VaccineRecipientList.get(i).getvaccineCert();
+				return VaccineCert;
+            }
+		}
+		return "";
 	}
 }

@@ -1,29 +1,39 @@
-//Class Clinician
-public class Clinician{
+public class Clinician {
     public String name;
-    public String inventory;
-    public int ID;
+    public int inventory, CID;
 
-//
-public Clinician(int ID,String name, String inventoryRecords){
-this.name = name;
-this.inventory = inventoryRecords;
-this.ID = ID;
-   }
-//ToString method which 
-@ Override
-public String toString() {
-    return "ID:"+getID()+"Clinician Name:"+ getName()+"Vaccine Cert:"+getInventory()+"\n";
-}
-//Get method which returns value of Assignment
-public int getID(){
-    return ID;
-}
-//Get method which returns value of year
-public String getName() {
-    return name;
-}
-public String getInventory() {
+    //Clinician constructor
+    public Clinician(int CID, String name, int inventoryRecords) {
+        this.name = name;
+        this.inventory = inventoryRecords;
+        this.CID = CID;
+    }
+
+    // ToString method which ovverides the default method and displays the edited way
+    @Override
+    public String toString() {
+        return "CID:" + getCID() + "Clinician Name:" + getName() + "Vaccine Cert:" + getInventory() + "\n";
+    }
+
+  //Get methods which return the value specified in the method title
+    public int getCID() {
+        return CID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getInventory() {
     return inventory;
+    }
+    //Set methods which update the value specified in the method title for ex setName updates the name and returns the newName
+    public void  setName(String newName) {
+        this.name = newName;
+        }
+    public void  setInventory(int newInventory) {
+    this.inventory = newInventory;
+     }
+    
 }
-}
+
